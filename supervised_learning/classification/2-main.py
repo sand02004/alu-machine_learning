@@ -12,3 +12,4 @@ A = neuron.forward_prop(X)
 
 if A is neuron.A:
     print(A)
+    
