@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+import numpy as np
+Neuron = __import__('1-neuron').Neuron
+
+np.random.seed(0)
+neuron = Neuron(784)
+print(neuron.W)
+print(neuron.b)
+print(neuron.A)
+neuron.A = 10
+print(neuron.A)
