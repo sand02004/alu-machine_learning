@@ -51,3 +51,33 @@ class Neuron:
         '''
         self.__A = 1 / (1 + np.exp(-np.dot(self.__W, X) - self.__b))
         return self.__A
+
+    def cost(self, Y, A):
+        '''
+            Calculates the cost of the model using logistic regression
+        '''
+        m = Y.shape[1]
+        cost = ((-1 / m) * np.sum(Y * np.log(A) + (1 - Y)
+                                  * np.log(1.0000001 - A)))
+        return cost
+
+    def evaluate(self, X, Y):
+        '''
+            Evaluates the neuron’s predictions
+        '''
+        A = self.forward_prop(X)
+        cost = self.cost(Y, A)
+        prediction = np.where(A >= 0.5, 1, 0)
+        return prediction, cost
+
+    def gradient_descent(self, X, Y, A, alpha=0.05):
+        '''
+            Calculates one pass of gradient descent on the neuron
+        '''
+        m = Y.shape[1]
+        dz = A - Y
+        db = (1 / m) * np.sum(dz)
+        dw = (1 / m) * np.matmul(X, dz.T)
+        self.__W = self.__W - (alpha * dw.T)
+        self.__b = self.__b - (alpha * db)
+        return self.__W, self.__b
